@@ -1,6 +1,6 @@
 # AWS-IAC-DEMO
 
-TODO: Add detailed README.md with architecture, info, steps, etc...
+TODO: Add details/diagrams/docs.
 
 ## LICENSE
 
