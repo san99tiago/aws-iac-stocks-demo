@@ -35,6 +35,7 @@ class DemoStack(Stack):
 
         # Input parameters
         self.construct_id = construct_id
+        self.stock_ticker = self.node.try_get_context("stock_ticker")
 
         # Main methods for the deployment
         self.create_dynamodb_table()
@@ -101,6 +102,7 @@ class DemoStack(Stack):
             memory_size=512,
             environment={
                 "DYNAMODB_TABLE": self.dynamodb_table.table_name,
+                "STOCK_TICKER": self.stock_ticker,
             },
             layers=[
                 self.lambda_layer_yfinance,
@@ -120,6 +122,7 @@ class DemoStack(Stack):
             memory_size=512,
             environment={
                 "DYNAMODB_TABLE": self.dynamodb_table.table_name,
+                "STOCK_TICKER": self.stock_ticker,
             },
         )
         self.dynamodb_table.grant_read_write_data(self.lambda_stocks_api)
@@ -140,9 +143,10 @@ class DemoStack(Stack):
         self.event_rule_etl = aws_events.Rule(
             self,
             "EventBridge-Rule",
+            enabled=True,
             rule_name=f"stocks-rule-{self.construct_id}",
             description=f"Event rule for scheduling {self.construct_id} ETL function periodically",
-            schedule=aws_events.Schedule.rate(Duration.minutes(1)),
+            schedule=aws_events.Schedule.rate(Duration.minutes(5)),
         )
 
         # Add Lambda function as a target for the Event Rule
