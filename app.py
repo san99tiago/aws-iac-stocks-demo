@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 import os
-
 import aws_cdk as cdk
-
 from cdk.demo_stack import DemoStack
 
 
