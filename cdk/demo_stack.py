@@ -146,7 +146,7 @@ class DemoStack(Stack):
             enabled=True,
             rule_name=f"stocks-rule-{self.construct_id}",
             description=f"Event rule for scheduling {self.construct_id} ETL function periodically",
-            schedule=aws_events.Schedule.rate(Duration.minutes(5)),
+            schedule=aws_events.Schedule.rate(Duration.minutes(1)),
         )
 
         # Add Lambda function as a target for the Event Rule
