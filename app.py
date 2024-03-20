@@ -9,6 +9,9 @@ try:
     MAIN_RESOURCES_NAME = os.environ.get("C9_PROJECT") or os.environ.get(
         "MAIN_RESOURCES_NAME"
     )
+    MAIN_RESOURCES_NAME = (
+        MAIN_RESOURCES_NAME.replace("@", "").replace(".", "").replace("_", "")
+    )
 except Exception as e:
     error_message = "ERROR: you need to set the environment variable 'C9_PROJECT' or 'MAIN_RESOURCES_NAME'"
     print(error_message)
