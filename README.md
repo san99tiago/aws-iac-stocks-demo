@@ -1,10 +1,17 @@
 # 📈 AWS-IAC-STOCKS-DEMO 📈
 
+This is an IaC Demo deployed on AWS that contains an API and ETL that process Stock Prices.
+
+<img src="assets/talk_event_photo_aws_iac_01.jpg" width=50%><img src="assets/talk_event_photo_aws_iac_02.jpg" width=50%>
+<br>
+<img src="assets/talk_event_photo_aws_iac_03.jpg" width=50%><img src="assets/talk_event_photo_aws_iac_04.jpg" width=50%>
+<br>
+
+## Architecture 🏦
+
 <img src="assets/aws_iac_stocks_demo.png" width=80%> <br>
 
 ## Overview 🔮
-
-This is an IaC Demo with that contains an API and ETL that process Stock Prices deployed on AWS with the following specifications:
 
 - Infrastructure as Code with [AWS CDK-Python](https://aws.amazon.com/cdk/) or [Terraform](https://www.terraform.io)
 - Source Code with [AWS Lambda Functions](https://aws.amazon.com/lambda/) built with [Python Runtime](https://www.python.org)
