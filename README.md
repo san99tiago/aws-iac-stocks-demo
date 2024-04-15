@@ -2,10 +2,12 @@
 
 This is an IaC Demo deployed on AWS that contains an API and ETL that process Stock Prices.
 
+<!-- INTENTIONALLY REMOVING IMAGES
 <img src="assets/talk_event_photo_aws_iac_01.jpg" width=50%><img src="assets/talk_event_photo_aws_iac_02.jpg" width=50%>
 <br>
 <img src="assets/talk_event_photo_aws_iac_03.jpg" width=50%><img src="assets/talk_event_photo_aws_iac_04.jpg" width=50%>
 <br>
+-->
 
 ## Architecture 🏦
 
