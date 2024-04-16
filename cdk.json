@@ -1,6 +1,6 @@
 {
   "app": "python3 app.py",
   "context": {
-    "stock_ticker": "AMZN"
+    "stock_ticker": "BTC-USD"
   }
 }

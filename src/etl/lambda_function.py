@@ -15,9 +15,11 @@ DYNAMODB_CLIENT = boto3.client("dynamodb")
 
 def get_stock_price_from_ticker(ticker: str) -> float:
     """From a given Ticket (str), return the stock price."""
-    stock = yf.Ticker("AMZN")
-    stock_current_price = stock.info.get("currentPrice") or stock.info.get(
-        "regularMarketPrice"
+    stock = yf.Ticker(ticker)
+    stock_current_price = (
+        stock.info.get("currentPrice")
+        or stock.info.get("regularMarketPrice")
+        or stock.fast_info.get("lastPrice")
     )
     print(f"Retrieved stock_price for {ticker} is: {stock_current_price}")
     return stock_current_price
