@@ -24,7 +24,74 @@ This is an IaC Demo deployed on AWS that contains an API and ETL that process St
 
 ## How to run this project? :dizzy:
 
-### Deployment
+
+### Manual Deployment Instructions (University EIA Demo)
+
+---
+... ACCESO A CUENTA DE AWS ...
+
+1. Login al Sandbox de AWS:
+
+- https://san99tiago.awsapps.com/start
+
+---
+... CREACIÓN DE BASE DE DATOS ...
+
+2. Ir al servicio "DynamoDB" y crea una tabla. Elige el nombre que desees.
+
+- Recuerda el nombre de la tabla, lo necesitaremos!!
+
+---
+... CREACIÓN DE ETL ...
+
+3. Ir al servicio de "Lambda" y crea una función. Elige el nombre que desees (`etl-<nombre>`).
+
+- Elige el rol: `DEMO_ROLE_UNIVERSIDAD_EIA_SELECCIONAME`
+
+4. Ve a la parte de abajo de "Lambda" y agrega una "Lambda Layer" (ARN), copiando esto:
+
+- `arn:aws:lambda:us-east-1:226584130046:layer:python3-12-yfinance:1`
+
+5. Ve al siguiente archivo y copia/pega el código en la función Lambda:
+
+- [./src/etl/lambda_function.py](./src/etl/lambda_function.py)
+
+6. Actualiza las siguientes líneas por el Ticker que quieras (acción/etl/quote):
+
+- `os.environ["STOCK_TICKER"]` por el ticker. Ejemplo --> `BTC-USD`
+- `os.environ["DYNAMODB_TABLE"]` por el nombe de la tabla (paso 2). Ejemplo --> `tabla-santi`
+
+7. En la parte superior de la Lambda, selecciona "Add Trigger". Escribe "Schedule", y selecciona "EventBridge". Crea una regla (elige nombre). y selecciona "Schedule expression".
+
+- Escribe en la regla: `rate(1 minute)`
+- Click en "Agregar" (crear regla)
+
+8. Ve a configuraciones de la Lambda de ETL. Selecciona "Configuration". Luego selecciona "General Configuration" y actualiza el "Timeout" de ejecución para que sea `30 segundos`.
+
+9. Procede a ir a la tabla de DynamoDB y verifica que cada 1 minuto, se vayan agregando nuevos items. (ETL funcional en este paso).
+
+---
+... CREACIÓN DE API ...
+
+10. Ir al servicio de "Lambda" y crea una función. Elige el nombre que desees (`api-<nombre>`).
+
+- Elige el rol: `DEMO_ROLE_UNIVERSIDAD_EIA_SELECCIONAME`
+- En opciones avanzadas, elige "Enable function URL". Auth type --> None. Otras opciones "Default".
+
+11. Ve al siguiente archivo y copia/pega el código en la función Lambda:
+
+- [./src/api/lambda_function.py](./src/api/lambda_function.py)
+
+12. Actualiza las siguientes líneas por el Ticker que elegiste en el paso 6 (acción/etl/quote):
+
+- `os.environ["STOCK_TICKER"]` por el ticker. Ejemplo --> `BTC-USD`
+- `os.environ["DYNAMODB_TABLE"]` por el nombe de la tabla (paso 2). Ejemplo --> `tabla-santi`
+
+13. Procede a ir a la parte superior donde dice "Function URL" y dale click al link azul. Este es el API que está habilitado para exponer las acciones.
+
+---
+
+### Infrastructure as Code Deployment
 
 (Optional) Login to your AWS Account, and go to the "[Cloud9](https://us-east-1.console.aws.amazon.com/cloud9control/home?region=us-east-1#/)" service. Then proceed to "create an environment", and use these settings (default):
 
